@@ -25,6 +25,9 @@ private slots:
 
     void on_spinWeekNumber_valueChanged(int weekNumber);
     void changeTheLabels();
+    void determineMaxWeek();
+
+    void on_BtAddTask_clicked();
 
 private:
     Ui::MainWindow *ui;

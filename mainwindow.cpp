@@ -1,5 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "ui_addtaskdialog.h"
+#include "addtaskdialog.h"
+
 
 #include <QDate>
 
@@ -16,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
     QDate currentDate = QDate::currentDate();
     qDebug() <<"CurrentDate "<<currentDate;
     int dayofWeek = currentDate.dayOfWeek();
-    int Week = currentDate.weekNumber();
+    //int Week = currentDate.weekNumber();
     int day = currentDate.day();
 
     labels.append(ui->firstDay);
@@ -34,7 +37,7 @@ MainWindow::MainWindow(QWidget *parent)
     qDebug() << "monday "<<monday.toString();
 
 
-    ui->spinWeekNumber->setValue(Week);
+    ui->spinWeekNumber->setValue(monday.weekNumber());
 
 
     /*qDebug()<< dayofWeek;
@@ -98,6 +101,8 @@ QDate MainWindow::FindTheFirstDayOfWeekk(QDate currentDate, int dayofWeek,int da
 void MainWindow::on_spinWeekNumber_valueChanged(int weekNumber)
 {
 
+    determineMaxWeek();
+
     qDebug() << "weekNumber before if"<< monday.weekNumber();
     if(weekNumber < monday.weekNumber()){
         monday = monday.addDays(-7);
@@ -108,6 +113,8 @@ void MainWindow::on_spinWeekNumber_valueChanged(int weekNumber)
     }
     qDebug()<< "paramweek" << weekNumber;
     qDebug() << "weekNumber after if"<< monday.weekNumber();
+    ui->spinWeekNumber->setValue(monday.weekNumber());
+    QCoreApplication::processEvents();
 
 }
 
@@ -119,4 +126,27 @@ void MainWindow::changeTheLabels()
          QCoreApplication::processEvents();
     }
     monday = monday.addDays(-7);
+}
+
+void MainWindow::determineMaxWeek()
+{
+    //Configuring the max week number
+     qDebug() << "--------------------------------------------------";
+     if(monday.daysInYear()%7 == 1){
+         ui->spinWeekNumber->setRange(0,53);
+         qDebug() << "finding week number of year if";
+     }else{
+
+         ui->spinWeekNumber->setRange(0,54);
+         qDebug() << "finding week number of year else";
+     }
+}
+
+void MainWindow::on_BtAddTask_clicked()
+{
+
+    addTaskDialog addTask;
+    addTask.setModal(true);
+    addTask.exec();
+
 }

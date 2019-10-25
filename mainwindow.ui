@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>712</width>
+    <width>839</width>
     <height>556</height>
    </rect>
   </property>
@@ -25,7 +25,7 @@
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_8">
+      <layout class="QHBoxLayout" name="firstHorizontal">
        <item>
         <widget class="QLabel" name="firstDay">
          <property name="text">
@@ -36,7 +36,7 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_7">
+      <layout class="QHBoxLayout" name="secondHorizontal">
        <item>
         <widget class="QLabel" name="secondDay">
          <property name="text">
@@ -47,7 +47,7 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_6">
+      <layout class="QHBoxLayout" name="thirdHorizontal">
        <item>
         <widget class="QLabel" name="thirdDay">
          <property name="text">
@@ -58,7 +58,7 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <layout class="QHBoxLayout" name="fourthHorizontal">
        <item>
         <widget class="QLabel" name="fourthDay">
          <property name="text">
@@ -69,7 +69,7 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <layout class="QHBoxLayout" name="fifthHorizontal">
        <item>
         <widget class="QLabel" name="fifthDay">
          <property name="text">
@@ -80,7 +80,7 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <layout class="QHBoxLayout" name="sixthHorizontal">
        <item>
         <widget class="QLabel" name="sixthDay">
          <property name="text">
@@ -91,7 +91,7 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <layout class="QHBoxLayout" name="seventhHorizontal">
        <item>
         <widget class="QLabel" name="seventhDay">
          <property name="text">
@@ -123,14 +123,27 @@
      <item>
       <widget class="QSpinBox" name="spinWeekNumber">
        <property name="minimum">
-        <number>1</number>
+        <number>0</number>
        </property>
        <property name="maximum">
-        <number>53</number>
+        <number>54</number>
        </property>
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QPushButton" name="BtAddTask">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>40</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add Task</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -138,7 +151,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>712</width>
+     <width>839</width>
      <height>22</height>
     </rect>
    </property>
