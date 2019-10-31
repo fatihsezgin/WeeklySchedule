@@ -2,15 +2,24 @@
 #include "ui_mainwindow.h"
 #include "ui_addtaskdialog.h"
 #include "addtaskdialog.h"
+#include "dbmanager.h"
 
 
+#include <QtSql>
 #include <QDate>
+#include <QDir>
+#include <QFileInfo>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 
 {
+
+    databasePath = QDir::currentPath()+"/myDb.db";
+    qDebug() << " mypath" << databasePath ;
+
+    DbManager db(databasePath);
 
 
     ui->setupUi(this);
@@ -98,6 +107,16 @@ QDate MainWindow::FindTheFirstDayOfWeekk(QDate currentDate, int dayofWeek,int da
     }
 }
 
+/*bool MainWindow::createConnection()
+{
+    QSqlDatabase db = QSqlDatabase::
+}*/
+
+/*bool MainWindow::createDatabase()
+{
+    QDir::path()
+}*/
+
 void MainWindow::on_spinWeekNumber_valueChanged(int weekNumber)
 {
 
@@ -150,3 +169,5 @@ void MainWindow::on_BtAddTask_clicked()
     addTask.exec();
 
 }
+
+

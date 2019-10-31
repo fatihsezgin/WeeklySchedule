@@ -21,13 +21,20 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    /*
+            Amacımız databasePath i static yapıp aynı path i addtaskbar.cpp de de
+            kullanmak fakat olmuyor bunu furkan abiye sor
+            static olan databasePath i non-static ve private slota yazınca çalışıyor.
+    */
+    //static QString databasePath;
+
 private slots:
 
     void on_spinWeekNumber_valueChanged(int weekNumber);
     void changeTheLabels();
     void determineMaxWeek();
-
     void on_BtAddTask_clicked();
+
 
 private:
     Ui::MainWindow *ui;
@@ -43,9 +50,14 @@ private:
     QDateEdit dateEdit;
     QList<QLabel *> labels;
     QDate monday;
+    QString databasePath;
+
     int Week;
 
     QDate FindTheFirstDayOfWeekk(QDate date, int dayOfWeek,int day);
+    /*bool createConnection();
+    bool createDatabase();*/
+
 
 
 

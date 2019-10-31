@@ -78,7 +78,7 @@
     <string>Details:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="LineSelectedDate">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -88,7 +88,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
+  <widget class="QLineEdit" name="LineTopic">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -98,7 +98,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPlainTextEdit" name="plainTextEdit">
+  <widget class="QPlainTextEdit" name="PTDetails">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -108,7 +108,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBox">
+  <widget class="QComboBox" name="ComboStatus">
    <property name="geometry">
     <rect>
      <x>160</x>
