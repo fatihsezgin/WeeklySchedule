@@ -23,6 +23,7 @@ public:
     explicit addTaskDialog(QWidget *parent = nullptr);
     ~addTaskDialog();
 
+
 private slots:
     void on_calendarWidget_clicked(const QDate &date);
 
@@ -33,8 +34,10 @@ private:
     QComboBox ComboStatus;
     QLineEdit LineSelectedDate;
     QLineEdit LineTopic;
-    QPlainTextEdit PlainDetails;
+    QPlainTextEdit PTDetails;
     QCalendarWidget calendarWidget;
+    DbManager db;
+
 
 
 

@@ -7,14 +7,16 @@ class DbManager
 {
 public:
 
-    DbManager(const QString& path);
+    DbManager();
 
     ~DbManager();
 
     bool isOpen() const;
+    bool createTable() const;
 
 private:
     QSqlDatabase db;
+    QString databasePath;
 };
 
 #endif // DBMANAGER_H

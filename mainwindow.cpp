@@ -16,21 +16,28 @@ MainWindow::MainWindow(QWidget *parent)
 
 {
 
-    databasePath = QDir::currentPath()+"/myDb.db";
-    qDebug() << " mypath" << databasePath ;
-
-    DbManager db(databasePath);
-
+    DbManager db;
+    db.createTable();
 
     ui->setupUi(this);
-    QString s = QDate::currentDate().toString("dd-MM-yy");
+
+    /*
+    *  @brief  currentDate is the day instance for the system current date.
+    *
+    */
+
     //QDate currentDate = QDate::fromString("2019-10-17","yyyy-MM-dd");
     QDate currentDate = QDate::currentDate();
     qDebug() <<"CurrentDate "<<currentDate;
     int dayofWeek = currentDate.dayOfWeek();
-    //int Week = currentDate.weekNumber();
     int day = currentDate.day();
+    monday = FindTheFirstDayOfWeekk(currentDate,dayofWeek,day);
+    ui->spinWeekNumber->setValue(monday.weekNumber());
 
+    /*
+    *@brief labels is a list of QLabel
+    *
+    */
     labels.append(ui->firstDay);
     labels.append(ui->secondDay);
     labels.append(ui->thirdDay);
@@ -38,25 +45,17 @@ MainWindow::MainWindow(QWidget *parent)
     labels.append(ui->fifthDay);
     labels.append(ui->sixthDay);
     labels.append(ui->seventhDay);
-
-    monday = FindTheFirstDayOfWeekk(currentDate,dayofWeek,day);
     changeTheLabels();
 
     qDebug() <<"after change labels week number" << monday.weekNumber();
     qDebug() << "monday "<<monday.toString();
 
-
-    ui->spinWeekNumber->setValue(monday.weekNumber());
-
-
-    /*qDebug()<< dayofWeek;
-    qDebug() << b;
-    qDebug() << day;*/
-
-
-
 }
 
+    /*
+    *@brief Destructor
+    *
+    */
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -82,7 +81,8 @@ QDate MainWindow::FindTheFirstDayOfWeekk(QDate currentDate, int dayofWeek,int da
                 qDebug() << "iff"<<newDate;
                 return newDate;
             }else{
-                QDate deneme;monday = monday.addDays(-7);
+                QDate deneme;
+                monday = monday.addDays(-7);
                 deneme.setDate(currentDate.year()-1,12,01);//day is does not matter.
                 int aa = deneme.daysInMonth();
                 QDate newDate;
@@ -107,20 +107,10 @@ QDate MainWindow::FindTheFirstDayOfWeekk(QDate currentDate, int dayofWeek,int da
     }
 }
 
-/*bool MainWindow::createConnection()
-{
-    QSqlDatabase db = QSqlDatabase::
-}*/
-
-/*bool MainWindow::createDatabase()
-{
-    QDir::path()
-}*/
-
 void MainWindow::on_spinWeekNumber_valueChanged(int weekNumber)
 {
 
-    determineMaxWeek();
+    //determineMaxWeek();
 
     qDebug() << "weekNumber before if"<< monday.weekNumber();
     if(weekNumber < monday.weekNumber()){
@@ -168,6 +158,21 @@ void MainWindow::on_BtAddTask_clicked()
     addTask.setModal(true);
     addTask.exec();
 
+}
+
+void MainWindow::getTasks()
+{
+    //monday always keeps the monday...
+    QDate tempDate = monday;
+
+    QSqlQuery query;
+    //query.prepare("Select ")
+}
+
+int MainWindow::getDayofWeek(QDate date)
+{
+    QDate d (date);
+    return d.dayOfWeek();
 }
 
 

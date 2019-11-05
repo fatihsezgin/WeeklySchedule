@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "dbmanager.h"
+
 #include <QMainWindow>
 #include <QCalendarWidget>
 #include <QDebug>
@@ -8,6 +10,7 @@
 #include <QSpinBox>
 #include <QDate>
 #include <QDateEdit>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,12 +24,10 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    /*
-            Amacımız databasePath i static yapıp aynı path i addtaskbar.cpp de de
-            kullanmak fakat olmuyor bunu furkan abiye sor
-            static olan databasePath i non-static ve private slota yazınca çalışıyor.
-    */
-    //static QString databasePath;
+
+
+    DbManager db;
+
 
 private slots:
 
@@ -34,6 +35,8 @@ private slots:
     void changeTheLabels();
     void determineMaxWeek();
     void on_BtAddTask_clicked();
+    void getTasks();
+    int getDayofWeek(QDate date);
 
 
 private:
@@ -50,7 +53,8 @@ private:
     QDateEdit dateEdit;
     QList<QLabel *> labels;
     QDate monday;
-    QString databasePath;
+
+
 
     int Week;
 
