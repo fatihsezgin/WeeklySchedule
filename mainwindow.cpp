@@ -10,14 +10,22 @@
 #include <QDir>
 #include <QFileInfo>
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 
 {
 
+    /*
+        * @brief database connection and creating table
+        * creatingTable creates the table if not exists,
+        * if already exists makes no changes.
+    */
     DbManager db;
     db.createTable();
+
+
 
     ui->setupUi(this);
 
@@ -34,6 +42,8 @@ MainWindow::MainWindow(QWidget *parent)
     monday = FindTheFirstDayOfWeekk(currentDate,dayofWeek,day);
     ui->spinWeekNumber->setValue(monday.weekNumber());
 
+    getTasks();
+
     /*
     *@brief labels is a list of QLabel
     *
@@ -48,7 +58,7 @@ MainWindow::MainWindow(QWidget *parent)
     changeTheLabels();
 
     qDebug() <<"after change labels week number" << monday.weekNumber();
-    qDebug() << "monday "<<monday.toString();
+    qDebug() << "monday "<<monday.toString("dd-MM-yy");
 
 }
 
@@ -163,10 +173,35 @@ void MainWindow::on_BtAddTask_clicked()
 void MainWindow::getTasks()
 {
     //monday always keeps the monday...
-    QDate tempDate = monday;
+    QDate tempDate;
+    tempDate.setDate(monday.year(),monday.month(),monday.day());
+    qDebug()<<"tempDate format"+tempDate.toString("dd-MM-yy");
+    /*qDebug()<< monday.year();
+    qDebug()<< monday.month();
+    qDebug()<< monday.day();*/
 
     QSqlQuery query;
-    //query.prepare("Select ")
+    /*query.prepare("Select taskID from tasks where SelectedDate= :tempDate");
+    query.bindValue(":tempDate","05-11-19");
+    qDebug() << query.exec();
+    while(query.next()){
+        int id = query.value(0).toInt();
+        qDebug() << id;
+    }*/
+
+    int i = 0;
+    while(i < 7){
+        query.prepare("Select taskID from tasks where SelectedDate= :tempDate");
+        query.bindValue(":tempDate",tempDate.toString("dd-MM-yy"));
+         qDebug()<< query.exec();
+        while(query.next()){
+            int taskID = query.value(0).toInt();
+            qDebug() << "taskID" <<taskID << "tempDate = " << tempDate.toString("dd-MM-yy");
+        }
+        tempDate = tempDate.addDays(1);
+        i++;
+    }
+
 }
 
 int MainWindow::getDayofWeek(QDate date)
