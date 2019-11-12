@@ -23,10 +23,7 @@ DbManager::DbManager()
 
 DbManager::~DbManager()
 {
-    if (db.isOpen())
-    {
-        db.close();
-    }
+
 }
 
 bool DbManager::isOpen() const{
@@ -37,7 +34,7 @@ bool DbManager::createTable() const
 {
     bool success = false;
 
-    QSqlQuery query;
+    QSqlQuery query(db);
     query.prepare("CREATE TABLE tasks  (taskID	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, SelectedDate	TEXT,Topic	TEXT, Details	TEXT,Status	TEXT );");
     if(!query.exec()){
         qDebug() << "Couldn't create table 'tasks': one might already exists.";
@@ -48,3 +45,28 @@ bool DbManager::createTable() const
 
 
 }
+
+bool DbManager::open()
+{
+    if(!db.isOpen()){
+        db.open();
+    }
+    return db.open();
+}
+
+bool DbManager::addTask(QString selectedDate, QString topic, QString details, QString status)
+{
+    QSqlQuery query(db);
+    if(db.isOpen()){
+        query.prepare("Insert into tasks(SELECTEDDATE,TOPIC,DETAILS,STATUS) values (:selectedDate,:topic,:details,:status)");
+        query.bindValue(":selectedDate",selectedDate);
+        query.bindValue(":topic", topic);
+        query.bindValue(":details",details);
+        query.bindValue(":status",status);
+        return query.exec();
+    }else{
+        return false;
+    }
+
+}
+

@@ -2,7 +2,6 @@
 #define DBMANAGER_H
 
 #include <QSqlDatabase>
-
 class DbManager
 {
 public:
@@ -13,9 +12,13 @@ public:
 
     bool isOpen() const;
     bool createTable() const;
+    bool open();
+    bool addTask(QString selectedDate,QString topic,QString details, QString status );
+
+    QSqlDatabase db;
 
 private:
-    QSqlDatabase db;
+
     QString databasePath;
 };
 

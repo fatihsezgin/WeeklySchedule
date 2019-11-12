@@ -11,9 +11,6 @@ addTaskDialog::addTaskDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
-
-    //DbManager db;
-
 }
 
 addTaskDialog::~addTaskDialog()
@@ -30,28 +27,19 @@ void addTaskDialog::on_calendarWidget_clicked(const QDate &date)
 
 void addTaskDialog::on_buttonBox_accepted()
 {
-    QSqlQuery query;
-    if(db.isOpen()){
-        query.prepare("Insert into tasks(SELECTEDDATE,TOPIC,DETAILS,STATUS) values (:selectedDate,:topic,:details,:status)");
-        query.bindValue(":selectedDate",ui->LineSelectedDate->text());
-        query.bindValue(":topic", ui->LineTopic->text());
-        query.bindValue(":details",ui->PTDetails->toPlainText());
-        query.bindValue(":status",ui->ComboStatus->currentText());
 
-        qDebug() <<ui->LineSelectedDate->text();
-        qDebug() <<ui->LineTopic->text();
-        qDebug() <<ui->PTDetails->toPlainText();
-        qDebug() <<ui->ComboStatus->currentText();
-        qDebug()<< query.exec();
+    bool control = false;
+    control = db.addTask(ui->LineSelectedDate->text(),
+               ui->LineTopic->text(),ui->PTDetails->toPlainText(),
+               ui->ComboStatus->currentText());
+
+    if(control)
         QMessageBox::information(this,tr("Saved to Database"),
                                         tr("The task is successfuly saved"));
+    else
+        QMessageBox::information(this,tr("Something wrong!!"),
+                                        tr("Something went wrong while saving the task."));
 
-
-
-
-    }else{
-        qDebug() << "db is not open";
-    }
 
     qDebug() <<"accepted";
 }

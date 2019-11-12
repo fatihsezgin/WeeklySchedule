@@ -4,7 +4,6 @@
 #include "addtaskdialog.h"
 #include "dbmanager.h"
 
-
 #include <QtSql>
 #include <QDate>
 #include <QDir>
@@ -55,6 +54,14 @@ MainWindow::MainWindow(QWidget *parent)
     labels.append(ui->fifthDay);
     labels.append(ui->sixthDay);
     labels.append(ui->seventhDay);
+
+    layouts.append(ui->firstVbox);
+    layouts.append(ui->secondVbox);
+    layouts.append(ui->thirdVbox);
+    layouts.append(ui->fourthVbox);
+    layouts.append(ui->fifthVbox);
+    layouts.append(ui->sixthVbox);
+    layouts.append(ui->seventhVbox);
     changeTheLabels();
 
     qDebug() <<"after change labels week number" << monday.weekNumber();
@@ -119,16 +126,15 @@ QDate MainWindow::FindTheFirstDayOfWeekk(QDate currentDate, int dayofWeek,int da
 
 void MainWindow::on_spinWeekNumber_valueChanged(int weekNumber)
 {
-
-    //determineMaxWeek();
-
     qDebug() << "weekNumber before if"<< monday.weekNumber();
     if(weekNumber < monday.weekNumber()){
         monday = monday.addDays(-7);
         changeTheLabels();
+        getTasks();
     }else if (weekNumber > monday.weekNumber()){
         monday = monday.addDays(7);
         changeTheLabels();
+        getTasks();
     }
     qDebug()<< "paramweek" << weekNumber;
     qDebug() << "weekNumber after if"<< monday.weekNumber();
@@ -176,19 +182,9 @@ void MainWindow::getTasks()
     QDate tempDate;
     tempDate.setDate(monday.year(),monday.month(),monday.day());
     qDebug()<<"tempDate format"+tempDate.toString("dd-MM-yy");
-    /*qDebug()<< monday.year();
-    qDebug()<< monday.month();
-    qDebug()<< monday.day();*/
 
-    QSqlQuery query;
-    /*query.prepare("Select taskID from tasks where SelectedDate= :tempDate");
-    query.bindValue(":tempDate","05-11-19");
-    qDebug() << query.exec();
-    while(query.next()){
-        int id = query.value(0).toInt();
-        qDebug() << id;
-    }*/
 
+    QSqlQuery query(db.db);
     int i = 0;
     while(i < 7){
         query.prepare("Select taskID from tasks where SelectedDate= :tempDate");
@@ -196,6 +192,8 @@ void MainWindow::getTasks()
          qDebug()<< query.exec();
         while(query.next()){
             int taskID = query.value(0).toInt();
+            createButton(taskID,tempDate);
+
             qDebug() << "taskID" <<taskID << "tempDate = " << tempDate.toString("dd-MM-yy");
         }
         tempDate = tempDate.addDays(1);
@@ -208,6 +206,87 @@ int MainWindow::getDayofWeek(QDate date)
 {
     QDate d (date);
     return d.dayOfWeek();
+}
+
+void MainWindow::createButton(int taskID, QDate tempDate)
+{
+
+
+
+
+    QPushButton *button = new QPushButton();
+    button->setMaximumWidth(40);
+    QDate buttonDate;
+    buttonDate.setDate(tempDate.year(),tempDate.month(),tempDate.day());
+    button->setAccessibleName(QString::number(taskID));
+    button->setText("Task");
+
+    switch (buttonDate.dayOfWeek()) {
+    case 1:
+        qDebug()<<"ptesi";
+        mondaybox = ui->firstVbox ;
+        mondaybox->addWidget(button);
+        break;
+    case 2:
+        qDebug()<<"salı";
+        tuesdaybox = ui->secondVbox;
+        tuesdaybox->addWidget(button);
+        break;
+    case 3:
+        qDebug()<<"carsamba";
+        wednesdaybox = ui->thirdVbox;
+        wednesdaybox->addWidget(button);
+        break;
+    case 4:
+        qDebug()<<"persembe";
+        thursdaybox = ui->fourthVbox;
+        thursdaybox->addWidget(button);
+        break;
+    case 5:
+        qDebug()<<"cuma";
+        fridaybox = ui->fifthVbox;
+        fridaybox->addWidget(button);
+        break;
+    case 6:
+        qDebug()<<"ctesi";
+        saturdaybox= ui->sixthVbox;
+        saturdaybox->addWidget(button);
+        break;
+    case 7:
+        qDebug()<<"pazar";
+        sundaybox = ui->seventhVbox;
+        sundaybox->addWidget(button);
+        break;
+    }
+    QCoreApplication::processEvents();
+
+}
+
+void MainWindow::matchScroll()
+{
+
+}
+
+void MainWindow::clearLayout(QList<QVBoxLayout *> layout)
+{
+    for(int i = 0; i< layout.size();i++){
+        QLayoutItem *child;
+        while((child=layout[i]->takeAt(0)) != nullptr){
+            delete child->widget();
+        }
+    }
+
+    /*while(QLayoutItem *item = layout->takeAt(0)){
+        if(deleteWidgets){
+            if(QWidget *widget = item->widget()){
+                widget->deleteLater();
+            }
+        }
+        if(QLayout *childLayout = item->layout()){
+            clearLayout(childLayout,deleteWidgets);
+        }
+        delete item;
+    }*/
 }
 
 

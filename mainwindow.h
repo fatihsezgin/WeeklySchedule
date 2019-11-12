@@ -10,6 +10,7 @@
 #include <QSpinBox>
 #include <QDate>
 #include <QDateEdit>
+#include <QVBoxLayout>
 
 
 QT_BEGIN_NAMESPACE
@@ -37,6 +38,9 @@ private slots:
     void on_BtAddTask_clicked();
     void getTasks();
     int getDayofWeek(QDate date);
+    void createButton(int taskID, QDate tempDate);
+    void matchScroll();
+    void clearLayout(QList<QVBoxLayout *>);
 
 
 private:
@@ -54,13 +58,23 @@ private:
     QList<QLabel *> labels;
     QDate monday;
 
+    QVBoxLayout *mondaybox;
+    QVBoxLayout *tuesdaybox;
+    QVBoxLayout *wednesdaybox;
+    QVBoxLayout *thursdaybox;
+    QVBoxLayout *fridaybox;
+    QVBoxLayout *saturdaybox;
+    QVBoxLayout *sundaybox;
+
+    QList<QVBoxLayout *> layouts;
+
+
+
 
 
     int Week;
 
     QDate FindTheFirstDayOfWeekk(QDate date, int dayOfWeek,int day);
-    /*bool createConnection();
-    bool createDatabase();*/
 
 
 
