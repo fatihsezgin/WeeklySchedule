@@ -34,13 +34,12 @@ private slots:
 
     void on_spinWeekNumber_valueChanged(int weekNumber);
     void changeTheLabels();
-    void determineMaxWeek();
     void on_BtAddTask_clicked();
     void getTasks();
     int getDayofWeek(QDate date);
-    void createButton(int taskID, QDate tempDate);
-    void matchScroll();
+    void createButton(int taskID, QDate tempDate,QString topic,QString status);
     void clearLayout(QList<QVBoxLayout *>);
+    void taskButtonPressed();
 
 
 private:
@@ -57,6 +56,8 @@ private:
     QDateEdit dateEdit;
     QList<QLabel *> labels;
     QDate monday;
+    QStringList statusItems;
+
 
     QVBoxLayout *mondaybox;
     QVBoxLayout *tuesdaybox;
@@ -67,10 +68,6 @@ private:
     QVBoxLayout *sundaybox;
 
     QList<QVBoxLayout *> layouts;
-
-
-
-
 
     int Week;
 

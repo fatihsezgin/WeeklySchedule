@@ -35,7 +35,7 @@ public:
     QLabel *label_8;
     QSpinBox *spinWeekNumber;
     QPushButton *BtAddTask;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout;
     QGroupBox *firstGroup;
     QGridLayout *gridLayout;
@@ -117,13 +117,13 @@ public:
         BtAddTask = new QPushButton(centralwidget);
         BtAddTask->setObjectName(QString::fromUtf8("BtAddTask"));
         BtAddTask->setGeometry(QRect(960, 420, 89, 25));
-        widget = new QWidget(centralwidget);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(20, 70, 1031, 333));
-        horizontalLayout = new QHBoxLayout(widget);
+        layoutWidget = new QWidget(centralwidget);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(20, 70, 1031, 333));
+        horizontalLayout = new QHBoxLayout(layoutWidget);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        firstGroup = new QGroupBox(widget);
+        firstGroup = new QGroupBox(layoutWidget);
         firstGroup->setObjectName(QString::fromUtf8("firstGroup"));
         gridLayout = new QGridLayout(firstGroup);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
@@ -153,7 +153,7 @@ public:
 
         horizontalLayout->addWidget(firstGroup);
 
-        secondGroup = new QGroupBox(widget);
+        secondGroup = new QGroupBox(layoutWidget);
         secondGroup->setObjectName(QString::fromUtf8("secondGroup"));
         gridLayout_15 = new QGridLayout(secondGroup);
         gridLayout_15->setObjectName(QString::fromUtf8("gridLayout_15"));
@@ -183,7 +183,7 @@ public:
 
         horizontalLayout->addWidget(secondGroup);
 
-        thirdGroup = new QGroupBox(widget);
+        thirdGroup = new QGroupBox(layoutWidget);
         thirdGroup->setObjectName(QString::fromUtf8("thirdGroup"));
         gridLayout_3 = new QGridLayout(thirdGroup);
         gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
@@ -213,7 +213,7 @@ public:
 
         horizontalLayout->addWidget(thirdGroup);
 
-        fourthGroup = new QGroupBox(widget);
+        fourthGroup = new QGroupBox(layoutWidget);
         fourthGroup->setObjectName(QString::fromUtf8("fourthGroup"));
         gridLayout_5 = new QGridLayout(fourthGroup);
         gridLayout_5->setObjectName(QString::fromUtf8("gridLayout_5"));
@@ -243,7 +243,7 @@ public:
 
         horizontalLayout->addWidget(fourthGroup);
 
-        fifthGroup = new QGroupBox(widget);
+        fifthGroup = new QGroupBox(layoutWidget);
         fifthGroup->setObjectName(QString::fromUtf8("fifthGroup"));
         gridLayout_13 = new QGridLayout(fifthGroup);
         gridLayout_13->setObjectName(QString::fromUtf8("gridLayout_13"));
@@ -273,7 +273,7 @@ public:
 
         horizontalLayout->addWidget(fifthGroup);
 
-        sixthGroup = new QGroupBox(widget);
+        sixthGroup = new QGroupBox(layoutWidget);
         sixthGroup->setObjectName(QString::fromUtf8("sixthGroup"));
         gridLayout_9 = new QGridLayout(sixthGroup);
         gridLayout_9->setObjectName(QString::fromUtf8("gridLayout_9"));
@@ -303,7 +303,7 @@ public:
 
         horizontalLayout->addWidget(sixthGroup);
 
-        seventhGroup = new QGroupBox(widget);
+        seventhGroup = new QGroupBox(layoutWidget);
         seventhGroup->setObjectName(QString::fromUtf8("seventhGroup"));
         gridLayout_7 = new QGridLayout(seventhGroup);
         gridLayout_7->setObjectName(QString::fromUtf8("gridLayout_7"));

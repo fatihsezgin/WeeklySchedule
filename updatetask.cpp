@@ -1,36 +1,37 @@
-#include "addtaskdialog.h"
-#include "dbmanager.h"
-#include "ui_addtaskdialog.h"
+#include "updatetask.h"
+#include "ui_updatetask.h"
 
 #include <QMessageBox>
 
-addTaskDialog::addTaskDialog(QWidget *parent) :
+updateTask::updateTask(QWidget *parent,int taskID) :
     QDialog(parent),
-    ui(new Ui::addTaskDialog)
+    ui(new Ui::updateTask)
 {
+    taskid= taskID;
     ui->setupUi(this);
-
 }
 
-addTaskDialog::~addTaskDialog()
+
+updateTask::~updateTask()
 {
     delete ui;
 }
 
-void addTaskDialog::on_calendarWidget_clicked(const QDate &date)
+void updateTask::on_calendarWidget_clicked(const QDate &date)
 {
     ui->LineSelectedDate->setText(date.toString("dd-MM-yy"));
     QCoreApplication::processEvents();
 
 }
 
-void addTaskDialog::on_buttonBox_accepted()
+
+void updateTask::on_buttonBox_accepted()
 {
 
     bool control = false;
-    control = db.addTask(ui->LineSelectedDate->text(),
+    control = db.updateTask(ui->LineSelectedDate->text(),
                ui->LineTopic->text(),ui->PTDetails->toPlainText(),
-               ui->ComboStatus->currentText());
+               ui->ComboStatus->currentText(),taskid);
 
     if(control)
         QMessageBox::information(this,tr("Saved to Database"),
@@ -42,4 +43,5 @@ void addTaskDialog::on_buttonBox_accepted()
 
     qDebug() <<"accepted";
 
+    close();
 }

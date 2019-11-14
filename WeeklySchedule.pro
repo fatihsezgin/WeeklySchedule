@@ -19,16 +19,19 @@ SOURCES += \
     addtaskdialog.cpp \
     dbmanager.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    updatetask.cpp
 
 HEADERS += \
     addtaskdialog.h \
     dbmanager.h \
-    mainwindow.h
+    mainwindow.h \
+    updatetask.h
 
 FORMS += \
     addtaskdialog.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    updatetask.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

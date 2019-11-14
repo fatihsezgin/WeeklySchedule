@@ -70,3 +70,23 @@ bool DbManager::addTask(QString selectedDate, QString topic, QString details, QS
 
 }
 
+bool DbManager::updateTask(QString selectedDate, QString topic, QString details, QString status,int taskID)
+{
+    QSqlQuery query(db);
+
+    if(db.isOpen()){
+        query.prepare("Update tasks  set SelectedDate=:selectedDate,Topic=:topic,Details=:details,Status=:status where taskID=:taskID");
+        query.bindValue(":selectedDate",selectedDate);
+        query.bindValue(":topic", topic);
+        query.bindValue(":details",details);
+        query.bindValue(":status",status);
+        query.bindValue(":taskID",taskID);
+        return query.exec();
+    }else{
+        return false;
+    }
+}
+
+
+
+

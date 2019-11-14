@@ -55,14 +55,18 @@ OBJECTS_DIR   = ./
 SOURCES       = addtaskdialog.cpp \
 		dbmanager.cpp \
 		main.cpp \
-		mainwindow.cpp moc_addtaskdialog.cpp \
-		moc_mainwindow.cpp
+		mainwindow.cpp \
+		updatetask.cpp moc_addtaskdialog.cpp \
+		moc_mainwindow.cpp \
+		moc_updatetask.cpp
 OBJECTS       = addtaskdialog.o \
 		dbmanager.o \
 		main.o \
 		mainwindow.o \
+		updatetask.o \
 		moc_addtaskdialog.o \
-		moc_mainwindow.o
+		moc_mainwindow.o \
+		moc_updatetask.o
 DIST          = ../../../../snap/Qt/5.13.1/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../../snap/Qt/5.13.1/gcc_64/mkspecs/common/unix.conf \
 		../../../../snap/Qt/5.13.1/gcc_64/mkspecs/common/linux.conf \
@@ -261,10 +265,12 @@ DIST          = ../../../../snap/Qt/5.13.1/gcc_64/mkspecs/features/spec_pre.prf 
 		../../../../snap/Qt/5.13.1/gcc_64/mkspecs/features/lex.prf \
 		WeeklySchedule.pro addtaskdialog.h \
 		dbmanager.h \
-		mainwindow.h addtaskdialog.cpp \
+		mainwindow.h \
+		updatetask.h addtaskdialog.cpp \
 		dbmanager.cpp \
 		main.cpp \
-		mainwindow.cpp
+		mainwindow.cpp \
+		updatetask.cpp
 QMAKE_TARGET  = WeeklySchedule
 DESTDIR       = 
 TARGET        = WeeklySchedule
@@ -273,7 +279,7 @@ TARGET        = WeeklySchedule
 first: all
 ####### Build rules
 
-WeeklySchedule: ui_addtaskdialog.h ui_mainwindow.h $(OBJECTS)  
+WeeklySchedule: ui_addtaskdialog.h ui_mainwindow.h ui_updatetask.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: WeeklySchedule.pro ../../../../snap/Qt/5.13.1/gcc_64/mkspecs/linux-g++/qmake.conf ../../../../snap/Qt/5.13.1/gcc_64/mkspecs/features/spec_pre.prf \
@@ -686,9 +692,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../snap/Qt/5.13.1/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents addtaskdialog.h dbmanager.h mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents addtaskdialog.cpp dbmanager.cpp main.cpp mainwindow.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents addtaskdialog.ui mainwindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents addtaskdialog.h dbmanager.h mainwindow.h updatetask.h $(DISTDIR)/
+	$(COPY_FILE) --parents addtaskdialog.cpp dbmanager.cpp main.cpp mainwindow.cpp updatetask.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents addtaskdialog.ui mainwindow.ui updatetask.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -725,9 +731,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: ../../../../snap/Qt/5.13.1/gcc_64/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -std=gnu++11 -Wall -W -dM -E -o moc_predefs.h ../../../../snap/Qt/5.13.1/gcc_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_addtaskdialog.cpp moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_addtaskdialog.cpp moc_mainwindow.cpp moc_updatetask.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_addtaskdialog.cpp moc_mainwindow.cpp
+	-$(DEL_FILE) moc_addtaskdialog.cpp moc_mainwindow.cpp moc_updatetask.cpp
 moc_addtaskdialog.cpp: addtaskdialog.h \
 		mainwindow.h \
 		dbmanager.h \
@@ -1167,13 +1173,316 @@ moc_mainwindow.cpp: mainwindow.h \
 		../../../../snap/Qt/5.13.1/gcc_64/bin/moc
 	/home/fatih/snap/Qt/5.13.1/gcc_64/bin/moc $(DEFINES) --include /home/fatih/Desktop/QtProjects/NotepadDeneme/WeeklySchedule/moc_predefs.h -I/home/fatih/snap/Qt/5.13.1/gcc_64/mkspecs/linux-g++ -I/home/fatih/Desktop/QtProjects/NotepadDeneme/WeeklySchedule -I/home/fatih/snap/Qt/5.13.1/gcc_64/include -I/home/fatih/snap/Qt/5.13.1/gcc_64/include/QtWidgets -I/home/fatih/snap/Qt/5.13.1/gcc_64/include/QtGui -I/home/fatih/snap/Qt/5.13.1/gcc_64/include/QtSql -I/home/fatih/snap/Qt/5.13.1/gcc_64/include/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
 
+moc_updatetask.cpp: updatetask.h \
+		mainwindow.h \
+		dbmanager.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/QSqlDatabase \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqldatabase.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qtsqlglobal.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qglobal.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qconfig.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtcore-config.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsysinfo.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qlogging.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qflags.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qatomic.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qmutex.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qnumeric.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qversiontagging.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qtsql-config.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qstring.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qchar.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qbytearray.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qrefcount.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qnamespace.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qarraydata.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qstringliteral.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qstringview.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QMainWindow \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qmainwindow.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qtgui-config.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qwidget.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qobject.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qlist.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qalgorithms.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qiterator.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qpair.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qvector.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qpoint.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qstringlist.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qregexp.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcoreevent.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qmetatype.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qobject_impl.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qmargins.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qrect.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsize.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qpalette.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qcolor.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qrgb.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qrgba64.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qbrush.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qmatrix.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qpolygon.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qregion.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qdatastream.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qiodevice.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qline.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qtransform.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qpainterpath.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qimage.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qpixelformat.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qpixmap.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qshareddata.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qhash.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qfont.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qfontinfo.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qsizepolicy.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qcursor.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qkeysequence.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qevent.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qvariant.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qmap.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qdebug.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtextstream.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qlocale.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qset.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qurl.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qurlquery.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qfile.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qfiledevice.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qvector2d.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qtouchdevice.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qtabwidget.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qicon.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QCalendarWidget \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qcalendarwidget.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qdatetime.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/QDebug \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QLabel \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qlabel.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qframe.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QSpinBox \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qspinbox.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qvalidator.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qregularexpression.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/QDate \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QDateEdit \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qdatetimeedit.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QVBoxLayout \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qlayout.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qgridlayout.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QDialog \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qdialog.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QComboBox \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qcombobox.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qstyleoption.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qslider.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qstyle.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qtabbar.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QLineEdit \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qlineedit.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qtextcursor.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qtextformat.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qpen.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qtextoption.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QPlainTextEdit \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qplaintextedit.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qtextedit.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qtextdocument.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qabstracttextdocumentlayout.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qtextlayout.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qglyphrun.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qrawfont.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qfontdatabase.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/QtSql \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/QtSqlDepends \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/QtCore \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/QtCoreDepends \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qabstractanimation.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qeventloop.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qabstractproxymodel.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qabstractstate.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qabstracttransition.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qanimationgroup.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qarraydataops.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qarraydatapointer.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qbasictimer.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qbitarray.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qbuffer.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qbytearraymatcher.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcache.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcborarray.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcborvalue.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcborcommon.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/quuid.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcbormap.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcborstream.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qfloat16.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcollator.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcommandlineoption.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcommandlineparser.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qconcatenatetablesproxymodel.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcryptographichash.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qdeadlinetimer.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qelapsedtimer.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qdir.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qfileinfo.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qdiriterator.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qeasingcurve.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qendian.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qeventtransition.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qexception.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qfactoryinterface.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qfileselector.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/QObject \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/QStringList \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qfilesystemwatcher.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qfinalstate.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qfuture.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qfutureinterface.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qrunnable.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qresultstore.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qfuturesynchronizer.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qfuturewatcher.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qhistorystate.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qidentityproxymodel.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qisenum.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qitemselectionmodel.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qjsonarray.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qjsonvalue.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qjsondocument.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qjsonobject.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qlibrary.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qlibraryinfo.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qversionnumber.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qlinkedlist.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qlockfile.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qloggingcategory.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qmath.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qmessageauthenticationcode.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qmetaobject.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qmimedata.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qmimedatabase.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qmimetype.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qobjectcleanuphandler.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qoperatingsystemversion.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qparallelanimationgroup.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qpauseanimation.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qplugin.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qpointer.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qpluginloader.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qprocess.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qpropertyanimation.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qvariantanimation.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qqueue.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qrandom.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qreadwritelock.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qresource.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsavefile.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qscopedvaluerollback.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qscopeguard.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsemaphore.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsequentialanimationgroup.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsettings.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsharedmemory.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsignalmapper.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsignaltransition.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsocketnotifier.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsortfilterproxymodel.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qstack.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qstandardpaths.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qstate.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qstatemachine.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qstorageinfo.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qstringlistmodel.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsystemsemaphore.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtemporarydir.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtemporaryfile.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtextboundaryfinder.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtextcodec.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qthread.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qthreadpool.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qthreadstorage.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtimeline.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtimer.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtimezone.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtranslator.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtransposeproxymodel.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtypetraits.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qwaitcondition.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qwineventnotifier.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qxmlstream.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtcoreversion.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqldriver.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqldriverplugin.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqlerror.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqlfield.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqlindex.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqlrecord.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqlquery.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqlquerymodel.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqlrelationaldelegate.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qitemdelegate.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qlistview.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qabstractitemview.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqlrelationaltablemodel.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqltablemodel.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqlresult.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qtsqlversion.h \
+		moc_predefs.h \
+		../../../../snap/Qt/5.13.1/gcc_64/bin/moc
+	/home/fatih/snap/Qt/5.13.1/gcc_64/bin/moc $(DEFINES) --include /home/fatih/Desktop/QtProjects/NotepadDeneme/WeeklySchedule/moc_predefs.h -I/home/fatih/snap/Qt/5.13.1/gcc_64/mkspecs/linux-g++ -I/home/fatih/Desktop/QtProjects/NotepadDeneme/WeeklySchedule -I/home/fatih/snap/Qt/5.13.1/gcc_64/include -I/home/fatih/snap/Qt/5.13.1/gcc_64/include/QtWidgets -I/home/fatih/snap/Qt/5.13.1/gcc_64/include/QtGui -I/home/fatih/snap/Qt/5.13.1/gcc_64/include/QtSql -I/home/fatih/snap/Qt/5.13.1/gcc_64/include/QtCore -I/usr/include/c++/8 -I/usr/include/x86_64-linux-gnu/c++/8 -I/usr/include/c++/8/backward -I/usr/lib/gcc/x86_64-linux-gnu/8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include updatetask.h -o moc_updatetask.cpp
+
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_addtaskdialog.h ui_mainwindow.h
+compiler_uic_make_all: ui_addtaskdialog.h ui_mainwindow.h ui_updatetask.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_addtaskdialog.h ui_mainwindow.h
+	-$(DEL_FILE) ui_addtaskdialog.h ui_mainwindow.h ui_updatetask.h
 ui_addtaskdialog.h: addtaskdialog.ui \
 		../../../../snap/Qt/5.13.1/gcc_64/bin/uic
 	/home/fatih/snap/Qt/5.13.1/gcc_64/bin/uic addtaskdialog.ui -o ui_addtaskdialog.h
@@ -1181,6 +1490,10 @@ ui_addtaskdialog.h: addtaskdialog.ui \
 ui_mainwindow.h: mainwindow.ui \
 		../../../../snap/Qt/5.13.1/gcc_64/bin/uic
 	/home/fatih/snap/Qt/5.13.1/gcc_64/bin/uic mainwindow.ui -o ui_mainwindow.h
+
+ui_updatetask.h: updatetask.ui \
+		../../../../snap/Qt/5.13.1/gcc_64/bin/uic
+	/home/fatih/snap/Qt/5.13.1/gcc_64/bin/uic updatetask.ui -o ui_updatetask.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -1868,6 +2181,9 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qguiapplication.h \
 		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qinputmethod.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QGridLayout \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QGroupBox \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qgroupbox.h \
 		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QHBoxLayout \
 		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QMenuBar \
 		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qmenubar.h \
@@ -1877,6 +2193,9 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QPushButton \
 		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qpushbutton.h \
 		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QScrollArea \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qscrollarea.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
 		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QStatusBar \
 		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qstatusbar.h \
 		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QWidget \
@@ -1904,7 +2223,6 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QPlainTextEdit \
 		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qplaintextedit.h \
 		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qtextedit.h \
-		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
 		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qtextdocument.h \
 		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qabstracttextdocumentlayout.h \
 		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qtextlayout.h \
@@ -2048,15 +2366,323 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqltablemodel.h \
 		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqlresult.h \
 		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qtsqlversion.h \
+		updatetask.h \
 		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/QDir \
 		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/QFileInfo
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
+
+updatetask.o: updatetask.cpp updatetask.h \
+		mainwindow.h \
+		dbmanager.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/QSqlDatabase \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqldatabase.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qtsqlglobal.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qglobal.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qconfig.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtcore-config.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsysinfo.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qlogging.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qflags.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qatomic.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qmutex.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qnumeric.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qversiontagging.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qtsql-config.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qstring.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qchar.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qbytearray.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qrefcount.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qnamespace.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qarraydata.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qstringliteral.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qstringview.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QMainWindow \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qmainwindow.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qtgui-config.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qwidget.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qobject.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qlist.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qalgorithms.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qiterator.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qpair.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qvector.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qpoint.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qstringlist.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qregexp.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcoreevent.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qmetatype.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qobject_impl.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qmargins.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qrect.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsize.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qpalette.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qcolor.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qrgb.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qrgba64.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qbrush.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qmatrix.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qpolygon.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qregion.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qdatastream.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qiodevice.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qline.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qtransform.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qpainterpath.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qimage.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qpixelformat.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qpixmap.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qshareddata.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qhash.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qfont.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qfontinfo.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qsizepolicy.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qcursor.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qkeysequence.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qevent.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qvariant.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qmap.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qdebug.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtextstream.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qlocale.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qset.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qurl.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qurlquery.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qfile.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qfiledevice.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qvector2d.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qtouchdevice.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qtabwidget.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qicon.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QCalendarWidget \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qcalendarwidget.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qdatetime.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/QDebug \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QLabel \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qlabel.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qframe.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QSpinBox \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qspinbox.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qvalidator.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qregularexpression.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/QDate \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QDateEdit \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qdatetimeedit.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QVBoxLayout \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qlayout.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qgridlayout.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QDialog \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qdialog.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QComboBox \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qcombobox.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qstyleoption.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qslider.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qstyle.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qtabbar.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QLineEdit \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qlineedit.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qtextcursor.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qtextformat.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qpen.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qtextoption.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QPlainTextEdit \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qplaintextedit.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qtextedit.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qtextdocument.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qabstracttextdocumentlayout.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qtextlayout.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qglyphrun.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qrawfont.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtGui/qfontdatabase.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/QtSql \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/QtSqlDepends \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/QtCore \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/QtCoreDepends \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qabstractanimation.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qeventloop.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qabstractproxymodel.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qabstractstate.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qabstracttransition.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qanimationgroup.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qarraydataops.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qarraydatapointer.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qbasictimer.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qbitarray.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qbuffer.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qbytearraymatcher.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcache.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcborarray.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcborvalue.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcborcommon.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/quuid.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcbormap.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcborstream.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qfloat16.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcollator.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcommandlineoption.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcommandlineparser.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qconcatenatetablesproxymodel.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qcryptographichash.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qdeadlinetimer.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qelapsedtimer.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qdir.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qfileinfo.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qdiriterator.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qeasingcurve.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qendian.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qeventtransition.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qexception.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qfactoryinterface.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qfileselector.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/QObject \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/QStringList \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qfilesystemwatcher.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qfinalstate.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qfuture.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qfutureinterface.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qrunnable.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qresultstore.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qfuturesynchronizer.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qfuturewatcher.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qhistorystate.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qidentityproxymodel.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qisenum.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qitemselectionmodel.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qjsonarray.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qjsonvalue.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qjsondocument.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qjsonobject.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qlibrary.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qlibraryinfo.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qversionnumber.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qlinkedlist.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qlockfile.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qloggingcategory.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qmath.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qmessageauthenticationcode.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qmetaobject.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qmimedata.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qmimedatabase.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qmimetype.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qobjectcleanuphandler.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qoperatingsystemversion.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qparallelanimationgroup.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qpauseanimation.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qplugin.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qpointer.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qpluginloader.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qprocess.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qpropertyanimation.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qvariantanimation.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qqueue.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qrandom.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qreadwritelock.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qresource.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsavefile.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qscopedvaluerollback.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qscopeguard.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsemaphore.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsequentialanimationgroup.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsettings.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsharedmemory.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsignalmapper.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsignaltransition.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsocketnotifier.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsortfilterproxymodel.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qstack.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qstandardpaths.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qstate.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qstatemachine.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qstorageinfo.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qstringlistmodel.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qsystemsemaphore.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtemporarydir.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtemporaryfile.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtextboundaryfinder.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtextcodec.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qthread.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qthreadpool.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qthreadstorage.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtimeline.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtimer.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtimezone.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtranslator.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtransposeproxymodel.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtypetraits.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qwaitcondition.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qwineventnotifier.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qxmlstream.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtCore/qtcoreversion.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqldriver.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqldriverplugin.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqlerror.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqlfield.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqlindex.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqlrecord.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqlquery.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqlquerymodel.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqlrelationaldelegate.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qitemdelegate.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qlistview.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qabstractitemview.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqlrelationaltablemodel.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqltablemodel.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qsqlresult.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtSql/qtsqlversion.h \
+		ui_updatetask.h \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/QMessageBox \
+		../../../../snap/Qt/5.13.1/gcc_64/include/QtWidgets/qmessagebox.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o updatetask.o updatetask.cpp
 
 moc_addtaskdialog.o: moc_addtaskdialog.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_addtaskdialog.o moc_addtaskdialog.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
+
+moc_updatetask.o: moc_updatetask.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_updatetask.o moc_updatetask.cpp
 
 ####### Install
 

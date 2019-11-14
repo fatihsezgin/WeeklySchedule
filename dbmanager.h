@@ -14,7 +14,7 @@ public:
     bool createTable() const;
     bool open();
     bool addTask(QString selectedDate,QString topic,QString details, QString status );
-
+    bool updateTask(QString selectedDate,QString topic,QString details, QString status,int taskID);
     QSqlDatabase db;
 
 private:
