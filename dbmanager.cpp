@@ -87,6 +87,25 @@ bool DbManager::updateTask(QString selectedDate, QString topic, QString details,
     }
 }
 
+QList<QString> DbManager::getTasks(int taskID)
+{
+    QList<QString> list;
+    QSqlQuery query(db);
+    qDebug()<< db.open() << "db status";
+    if(db.isOpen()){
+        query.prepare("Select SelectedDate, Topic, Details, Status from tasks where taskID=:taskID");
+        query.bindValue(":taskID",taskID);
+        qDebug() << query.exec();
+        while(query.next()){
+            list.append(query.value(0).toString());
+            list.append(query.value(1).toString());
+            list.append(query.value(2).toString());
+            list.append(query.value(3).toString());
+        }
+    }
+    return list;
+}
+
 
 
 

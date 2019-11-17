@@ -8,7 +8,15 @@ updateTask::updateTask(QWidget *parent,int taskID) :
     ui(new Ui::updateTask)
 {
     taskid= taskID;
+    QList<QString> list;
+    list = db.getTasks(taskID);
+
     ui->setupUi(this);
+    ui->LineSelectedDate->setText(list[0]);
+    ui->LineTopic->setText(list[1]);
+    ui->PTDetails->setPlainText(list[2]);
+    ui->ComboStatus->setCurrentText(list[3]);
+    QCoreApplication::processEvents();
 }
 
 

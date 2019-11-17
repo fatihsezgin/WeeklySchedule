@@ -15,6 +15,7 @@ public:
     bool open();
     bool addTask(QString selectedDate,QString topic,QString details, QString status );
     bool updateTask(QString selectedDate,QString topic,QString details, QString status,int taskID);
+    QList<QString> getTasks(int taskID);
     QSqlDatabase db;
 
 private:

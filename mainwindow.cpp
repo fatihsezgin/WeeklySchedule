@@ -173,7 +173,6 @@ void MainWindow::createButton(int taskID, QDate tempDate, QString topic,QString 
 {
 
     QPushButton *button = new QPushButton();
-    button->setMaximumWidth(100);
     QDate buttonDate;
     buttonDate.setDate(tempDate.year(),tempDate.month(),tempDate.day());
     button->setAccessibleName(QString::number(taskID));
