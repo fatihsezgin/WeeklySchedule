@@ -2,6 +2,7 @@
 #define DBMANAGER_H
 
 #include <QSqlDatabase>
+#include <QDate>
 class DbManager
 {
 public:
@@ -16,6 +17,7 @@ public:
     bool addTask(QString selectedDate,QString topic,QString details, QString status );
     bool updateTask(QString selectedDate,QString topic,QString details, QString status,int taskID);
     QList<QString> getTasks(int taskID);
+    QString getTaskTopic(QDate currentDay);
     QSqlDatabase db;
 
 private:

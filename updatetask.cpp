@@ -53,3 +53,8 @@ void updateTask::on_buttonBox_accepted()
 
     close();
 }
+
+void updateTask::on_buttonBox_rejected()
+{
+    close();
+}

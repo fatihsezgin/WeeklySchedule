@@ -83,7 +83,7 @@ public:
 
     void retranslateUi(QDialog *updateTask)
     {
-        updateTask->setWindowTitle(QCoreApplication::translate("updateTask", "Dialog", nullptr));
+        updateTask->setWindowTitle(QCoreApplication::translate("updateTask", "Update Task", nullptr));
         label->setText(QCoreApplication::translate("updateTask", "Selected Date :", nullptr));
         label_2->setText(QCoreApplication::translate("updateTask", "Topic:", nullptr));
         label_3->setText(QCoreApplication::translate("updateTask", "Details:", nullptr));

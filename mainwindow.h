@@ -25,10 +25,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-
-
     DbManager db;
-
 
 private slots:
 
@@ -40,6 +37,7 @@ private slots:
     void createButton(int taskID, QDate tempDate,QString topic,QString status);
     void clearLayout(QList<QVBoxLayout *>);
     void taskButtonPressed();
+    void remainderScreen();
 
 
 private:
@@ -57,6 +55,7 @@ private:
     QList<QLabel *> labels;
     QDate monday;
     QStringList statusItems;
+    QDate today;
 
 
     QVBoxLayout *mondaybox;

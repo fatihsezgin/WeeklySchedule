@@ -20,17 +20,20 @@ SOURCES += \
     dbmanager.cpp \
     main.cpp \
     mainwindow.cpp \
+    popup.cpp \
     updatetask.cpp
 
 HEADERS += \
     addtaskdialog.h \
     dbmanager.h \
     mainwindow.h \
+    popup.h \
     updatetask.h
 
 FORMS += \
     addtaskdialog.ui \
     mainwindow.ui \
+    popup.ui \
     updatetask.ui
 
 # Default rules for deployment.

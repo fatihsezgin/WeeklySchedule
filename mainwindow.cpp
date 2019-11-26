@@ -4,6 +4,7 @@
 #include "addtaskdialog.h"
 #include "dbmanager.h"
 #include "updatetask.h"
+#include "popup.h"
 
 #include <QtSql>
 #include <QDate>
@@ -18,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
 
 
-    /*
+    /* the widget is on the second screen,
         * @brief database connection and creating table
         * creatingTable creates the table if not exists,
         * if already exists makes no changes.
@@ -36,10 +37,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     //QDate currentDate = QDate::fromString("2019-10-17","yyyy-MM-dd");
     QDate currentDate = QDate::currentDate();
+    today = QDate::currentDate();
+
     qDebug() <<"CurrentDate "<<currentDate;
     int dayofWeek = currentDate.dayOfWeek();
     int day = currentDate.day();
     monday = FindTheFirstDayOfWeekk(currentDate,dayofWeek,day);
+
     ui->spinWeekNumber->setValue(monday.weekNumber());
 
     //getTasks();
@@ -67,6 +71,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     qDebug() <<"after change labels week number" << monday.weekNumber();
     qDebug() << "monday "<<monday.toString("dd-MM-yy");
+    QTimer *timer;
+    timer = new QTimer(this);
+    connect(timer,SIGNAL(timeout()),this,SLOT(remainderScreen()));
+    timer->start(30*60*1000);
+
 
 }
 
@@ -78,8 +87,6 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-
-
 
 
 void MainWindow::on_spinWeekNumber_valueChanged(int weekNumber)
@@ -152,6 +159,7 @@ void MainWindow::getTasks()
 
 int MainWindow::getDayofWeek(QDate date)
 {
+
     QDate d (date);
     return d.dayOfWeek();
 }
@@ -165,6 +173,18 @@ void MainWindow::taskButtonPressed()
      updateTask.setModal(true);
      updateTask.exec();
      on_spinWeekNumber_valueChanged(monday.weekNumber());
+
+}
+
+void MainWindow::remainderScreen()
+{
+
+    QString topic = db.getTaskTopic(today);
+    popup popup(this,topic);
+    popup.setModal(true);
+    popup.exec();
+
+
 
 
 }

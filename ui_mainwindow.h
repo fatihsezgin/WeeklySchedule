@@ -349,7 +349,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
+        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "DTsis Weekly Schedule", nullptr));
         label_8->setText(QCoreApplication::translate("MainWindow", "Hafta Numaras\304\261", nullptr));
         BtAddTask->setText(QCoreApplication::translate("MainWindow", "Add Task", nullptr));
         firstGroup->setTitle(QString());

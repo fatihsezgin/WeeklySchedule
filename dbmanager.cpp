@@ -106,6 +106,28 @@ QList<QString> DbManager::getTasks(int taskID)
     return list;
 }
 
+QString DbManager::getTaskTopic(QDate currentDay)
+{
+    QSqlQuery query(db);
+
+
+    QString topic, status;
+    QString date = currentDay.toString("dd-MM-yy");
+
+    query.prepare("Select topic, status from tasks where selectedDate = :selectedDate");
+    query.bindValue(":selectedDate",date);
+    query.exec();
+     while(query.next()){
+         status = query.value(1).toString();
+         if(QString::compare(status , "On Progress", Qt::CaseInsensitive) == 0){
+               topic = query.value(0).toString();
+         }else{
+             continue;
+         }
+     }
+    return topic;
+}
+
 
 
 
